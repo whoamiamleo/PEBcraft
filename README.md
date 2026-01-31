@@ -5,10 +5,10 @@ A utility that transforms C source code into position-independent shellcode whic
 
 ## Features
 
-- **Dynamic PEB Resolution**: Resolves Windows API functions directly via the Process Environment Block (PEB), bypassing the Import Address Table (IAT) to hinder detection.
+- **Dynamic PEB Resolution**: Resolves Windows API functions directly via the Process Environment Block (PEB), bypassing the Import Address Table (IAT) to minimize forensic footprint.
 - **Multi-Architecture Support**: Generates position-independent x86 and x64 assembly code directly from C source.
-- **API Obfuscation**: Employs hashing for module and function names to defeat both static and dynamic analysis tools.
-- **Encrypted String Literals**: Implements compile-time string encryption with stack-based runtime decryption, neutralizing static string analysis and signature-based detection.
+- **API Obfuscation**: Employs bit-mixed hashing for module and function names to defeat both static and dynamic string analysis tools.
+- **Encrypted String Literals**: Implements compile-time string encryption with stack-based runtime decryption to defeat static string analysis tools.
 - **Streamlined Shellcode Development**: Simplifies the creation of sophisticated, weaponized payloads for offensive security research and red team operations.
 
 ---
