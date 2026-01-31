@@ -6,6 +6,9 @@ __forceinline constexpr unsigned long CalculateHashSeed() {
     unsigned long seed = 5381;
     for (int i = 0; i < 8; i++)
         seed = ((seed << 5) + seed) + __TIME__[i];
+    seed = (seed ^ (seed >> 16)) * 0x85ebca6b;
+    seed = (seed ^ (seed >> 13)) * 0xc2b2ae35;
+    seed = (seed ^ (seed >> 16));
     return seed;
 }
 
