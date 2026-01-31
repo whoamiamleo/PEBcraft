@@ -1,8 +1,6 @@
 #pragma once
 #define HASH(string) []() { constexpr unsigned long h = HashStringDjb2(string); return h; }()
-#define XOR(STR) XorString<sizeof(STR)>(STR).decrypt()
-
-inline constexpr unsigned char XOR_KEY = (unsigned char)(__TIME__[7] + __TIME__[6]);
+#define XOR(string) XorString<sizeof(string)>(string).decrypt()
 
 __forceinline constexpr unsigned long CalculateHashSeed() {
     unsigned long seed = 5381;
@@ -12,6 +10,7 @@ __forceinline constexpr unsigned long CalculateHashSeed() {
 }
 
 inline constexpr unsigned long HASH_SEED = CalculateHashSeed();
+inline constexpr unsigned char XOR_KEY = (unsigned char)(HASH_SEED);
 
 template <typename T>
 __forceinline constexpr unsigned long HashStringDjb2(const T* str) {
