@@ -30,28 +30,33 @@ __forceinline constexpr unsigned long HashStringDjb2(const T* str) {
 
 template <size_t N>
 struct XorString {
-    template<size_t... Is>
+    template <size_t... Is>
     struct Seq {};
 
-    template<size_t M, size_t... Is>
+    template <size_t M, size_t... Is>
     struct GenSeq : GenSeq<M - 1, M - 1, Is...> {};
 
-    template<size_t... Is>
-    struct GenSeq<0, Is...> : Seq<Is...> {};
+    template <size_t... Is>
+    struct GenSeq<0, Is...> {
+        using Type = Seq<Is...>;
+    };
 
-    char data[N];
+    volatile char data[N];
 
-    __forceinline constexpr XorString(const char* str) : XorString(str, GenSeq<N>{}) {}
+    __forceinline operator char* () { return (char*)data; }
+
+    __forceinline constexpr XorString(const char* str)
+        : XorString(str, typename GenSeq<N>::Type{}) {
+    }
 
     template <size_t... Is>
     __forceinline constexpr XorString(const char* str, Seq<Is...>)
         : data{ static_cast<char>(str[Is] ^ XOR_KEY)... } {
     }
 
-    __forceinline char* decrypt() {
-        for (volatile size_t i = 0; i < N; i++) {
+    __forceinline XorString<N>& decrypt() {
+        for (size_t i = 0; i < N; i++)
             data[i] ^= XOR_KEY;
-        }
-        return data;
+        return *this;
     }
 };
