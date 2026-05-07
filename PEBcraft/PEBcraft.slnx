@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="PEBcraft/PEBcraft.vcxproj" Id="365d4f02-5952-46ce-b024-7340b6e40352" />
+</Solution>
